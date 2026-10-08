@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Jaielle Decryption Tool</title>
+<style>
+body { font-family: sans-serif; background: #fff0f5; padding: 30px; text-align: center; }
+.box { background: white; padding: 25px; border-radius: 15px; max-width: 500px; margin: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+input, textarea { width: 90%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #ffb6d9; }
+button { background: #ff4d94; color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-size: 16px; }
+#output { margin-top: 20px; font-weight: bold; color: #d63384; word-break: break-all; }
+</style>
+</head>
+<body>
+<div class="box">
+<h2>🗀 Jaielle Decryption Tool</h2>
+<p>Paste the encrypted message, enter the key</p>
+<textarea id="msg" rows="4" placeholder="Paste encrypted message here..."></textarea>
+<input id="key" type="text" placeholder="Enter key: JAIELLE" />
+<br>
+<button onclick="decrypt()">Unlock</button>
+<div id="output"></div>
+</div>
+<script>
+function decrypt() {
+  const enc = document.getElementById("msg").value.trim();
+  const key = document.getElementById("key").value.trim();
+  if (!enc || !key) { alert("Please fill both fields"); return; }
+  if (key !== "JAIELLE") { alert("Key should be: JAIELLE"); return; }
+  try {
+    const decoded = atob(enc);
+    let result = "";
+    for (let i = 0; i < decoded.length; i++) {
+      result += String.fromCharCode(decoded.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+    }
+    document.getElementById("output").innerText = "Decrypted: " + result;
+  } catch (e) {
+    document.getElementById("output").innerText = "Failed to decrypt. Check the message.";
+  }
+}
+</script>
+</body>
+</html>
